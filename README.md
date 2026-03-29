@@ -59,7 +59,7 @@ Meta-style webhook verification with query parameters:
 ### `POST /webhook`
 Pipeline steps:
 1. Receives inbound WhatsApp payload.
-2. Attempts to log raw payload in PostgreSQL table `webhook_events` (fails gracefully if DB is temporarily unavailable).
+2. Logs raw payload in PostgreSQL table `webhook_events`.
 3. Extracts OCR text from media (placeholder implementation).
 4. Cleans OCR text with OpenAI.
 5. Classifies message with OpenAI.
@@ -82,12 +82,3 @@ WEBHOOK_VERIFY_TOKEN=change_me
 - `src/services/ocrService.js` is intentionally a placeholder. Replace it with your OCR provider implementation.
 - The OpenAI calls expect JSON responses and rely on prompts under `prompts/`.
 - Add auth/signature verification middleware before exposing publicly.
-
-
-## Testing
-
-```bash
-npm run test
-```
-
-Includes unit tests for classifier/router logic and an end-to-end webhook route test using dependency injection.

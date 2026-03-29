@@ -26,7 +26,7 @@ export async function testDbConnection() {
 }
 
 export async function logInboundEvent(payload) {
-  if (!connectionString) return false;
+  if (!connectionString) return;
 
   const sql = `
     CREATE TABLE IF NOT EXISTS webhook_events (
@@ -39,12 +39,6 @@ export async function logInboundEvent(payload) {
 
   const insertSql = 'INSERT INTO webhook_events(source, payload) VALUES($1, $2::jsonb)';
 
-  try {
-    await pool.query(sql);
-    await pool.query(insertSql, ['whatsapp', JSON.stringify(payload)]);
-    return true;
-  } catch (error) {
-    console.error('[DB] Failed to persist webhook event:', error.message);
-    return false;
-  }
+  await pool.query(sql);
+  await pool.query(insertSql, ['whatsapp', JSON.stringify(payload)]);
 }
