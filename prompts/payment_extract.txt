@@ -1,0 +1,12 @@
+Extract structured payment details from user text or OCR output.
+Return strict JSON with this shape:
+{
+  "amount": number | null,
+  "currency": "string | null",
+  "transaction_id": "string | null",
+  "payment_method": "string | null",
+  "paid_at": "ISO8601 string | null",
+  "counterparty": "string | null",
+  "confidence": number
+}
+Do not include markdown.

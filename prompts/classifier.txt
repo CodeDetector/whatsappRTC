@@ -1,0 +1,9 @@
+Classify inbound WhatsApp messages for ERP workflows.
+Allowed categories: "payment", "order", "support", "unknown".
+Return strict JSON:
+{
+  "category": "payment|order|support|unknown",
+  "confidence": number,
+  "reason": "string"
+}
+Do not include markdown.
